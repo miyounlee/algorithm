@@ -10,16 +10,18 @@ public class Main {
         int T = Integer.parseInt(br.readLine());
 
         StringBuilder sb = new StringBuilder();
+        StringTokenizer st;
 
         for (int i = 0; i < T; i++) {
-            String s = br.readLine();
-            StringTokenizer st = new StringTokenizer(s);
+            st = new StringTokenizer(br.readLine(),",");
 
-            int a = Integer.parseInt(st.nextToken(","));
-            int b = Integer.parseInt(st.nextToken(","));
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
 
             sb.append(a + b).append("\n");
         }
+        
+        br.close();
         System.out.println(sb);
     }
 }
