@@ -9,55 +9,24 @@ public class Main {
         Queue<Integer> queue = new LinkedList<>();
 
         int N = Integer.parseInt(br.readLine());
-        int count = 1;
         int lastValue = -1;
-        while (count <= N) {
+
+        while (N-- > 0) {
             st = new StringTokenizer(br.readLine());
-            switch (st.nextToken()) {
-                case "push":
-                    lastValue = Integer.parseInt(st.nextToken());
-                    queue.offer(lastValue);
-                    count++;
-                    break;
-                case "pop":
-                    if (queue.isEmpty()) {
-                        bw.write(-1 + "\n");
-                        count++;
-                        break;
-                    }
-                    bw.write(queue.poll() + "\n");
-                    count++;
-                    break;
-                case "size":
-                    bw.write(queue.size() + "\n");
-                    count++;
-                    break;
-                case "empty":
-                    if (queue.isEmpty()) {
-                        bw.write(1 + "\n");
-                    } else {
-                        bw.write(0 + "\n");
-                    }
-                    count++;
-                    break;
-                case "front":
-                    if (queue.isEmpty()) {
-                        bw.write(-1 + "\n");
-                        count++;
-                        break;
-                    }
-                    bw.write(queue.peek() + "\n");
-                    count++;
-                    break;
-                case "back":
-                    if (queue.isEmpty()) {
-                        bw.write(-1 + "\n");
-                        count++;
-                        break;
-                    }
-                    bw.write(lastValue + "\n");
-                    count++;
-                    break;
+            String order = st.nextToken();
+            if (order.equals("push")) {
+                lastValue = Integer.parseInt(st.nextToken());
+                queue.offer(lastValue);
+            } else if (order.equals("pop")) {
+                bw.write(queue.isEmpty() ? -1 + "\n" : queue.poll() + "\n");
+            } else if (order.equals("size")) {
+                bw.write(queue.size() + "\n");
+            } else if (order.equals("empty")) {
+                bw.write(queue.isEmpty() ? 1 + "\n" : 0 + "\n");
+            } else if (order.equals("front")) {
+                bw.write(queue.isEmpty() ? -1 + "\n" : queue.peek() + "\n");
+            } else if (order.equals("back")) {
+                bw.write(queue.isEmpty() ? -1 + "\n" : lastValue + "\n");
             }
         }
         br.close();
