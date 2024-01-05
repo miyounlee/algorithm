@@ -11,13 +11,20 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         int packet = 1;
 
-        while (queue.size() <= N && packet >= 0) {
+        while (packet >= 0) {
             packet = Integer.parseInt(br.readLine());
-            if (packet > 0) {
-                queue.offer(packet);
-            } else if (packet == 0) {
+
+            if (packet == 0) {
                 queue.poll();
+                continue;
             }
+            if (queue.size() == N) {
+                continue;
+            }
+            if (packet == -1) {
+                break;
+            }
+            queue.offer(packet);
         }
         br.close();
 
