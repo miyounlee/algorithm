@@ -6,17 +6,17 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        Stack<Byte> stack = new Stack<>();
 
         int N = Integer.parseInt(br.readLine());
 
         while (N-- > 0) {
-            byte[] input = br.readLine().getBytes();
-            for (byte b : input) {
+            Stack<Character> stack = new Stack<>();
+            char[] input = br.readLine().toCharArray();
+            for (char b : input) {
                 if (b == '(') {
                     stack.push(b);
                 } else if (b == ')') {
-                    if (stack.isEmpty()) { // 삭제할 ) 가 없을 경우
+                    if (stack.isEmpty()) {
                         stack.push(b);
                         break;
                     } else {
@@ -29,7 +29,6 @@ public class Main {
             } else {
                 bw.write("NO\n");
             }
-            stack.clear();
         }
         br.close();
         bw.flush();
