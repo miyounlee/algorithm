@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        MyStack<Integer> myStack = new MyStack<>();
+        MyStack myStack = new MyStack();
 
         int N = Integer.parseInt(br.readLine());
         while (N-- > 0) {
@@ -30,28 +30,32 @@ public class Main {
     }
 }
 
-class MyStack<E> {
-    LinkedList<E> list = new LinkedList<>();
+class MyStack {
+    private int[] stack = new int[10000];
+    private int topIndex = -1;
+    private int size = 0;
 
-    public void push(E e) {
-        list.add(e);
+    public void push(int value) {
+        stack[++topIndex] = value;
+        size++;
     }
 
-    public E pop() {
-        E value = list.getLast();
-        list.removeLast();
+    public int pop() {
+        int value = stack[topIndex];
+        stack[topIndex--] = 0;
+        size--;
         return value;
     }
 
     public int size() {
-        return list.size();
+        return size;
     }
 
     public boolean isEmpty() {
-        return list.isEmpty();
+        return size == 0;
     }
 
-    public E top() {
-        return list.getLast();
+    public int top() {
+        return stack[topIndex];
     }
 }
