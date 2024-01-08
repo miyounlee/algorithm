@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 public class Main {
 
@@ -8,38 +7,39 @@ public class Main {
         BufferedWriter bw = new BufferedWriter((new OutputStreamWriter(System.out)));
 
         while (true) {
-            String input = br.readLine();
-            char[] charArr = input.toCharArray();
-            if (charArr[0] == '.') break;
-            Stack<Character> stack = new Stack<>();
-
+            boolean isValid = true;
+            char[] charArr = br.readLine().toCharArray();
+            if (charArr.length == 1 || charArr[0] == '.') break;
+            char[] stack = new char[charArr.length];
+            int topIndex = -1;
+            
             for (char ch : charArr) {
-                if (ch == '(') {
-                    stack.push(ch);
-                } else if (ch == ')') {
-                    if (stack.isEmpty() || stack.peek() != '(') {
-                        stack.push(ch);
-                        break;
-                    }
-                    stack.pop();
-                } else if (ch == '[') {
-                    stack.push(ch);
-                } else if (ch == ']') {
-                    if (stack.isEmpty() || stack.peek() != '[') {
-                        stack.push(ch);
-                        break;
-                    }
-                    stack.pop();
-                } else if (ch == '.') {
-                    break;
-                }
+               if (ch == '(' || ch == '[') {
+                   stack[++topIndex] = ch;
+               } else if (ch == ')' || ch == ']') {
+                   if (topIndex < 0 || !isMatch(stack[topIndex--], ch)) {
+                       isValid = false;
+                       break;
+                   }
+               }
             }
-            if (stack.isEmpty()) {
+            
+            if (isValid && topIndex < 0) {
                 bw.write("yes\n");
             } else {
                 bw.write("no\n");
             }
         }
         bw.flush();
+    }
+    
+    public static boolean isMatch(char open, char close) {
+        if (open == '(' && close == ')') {
+            return true;
+        } else if (open == '[' && close == ']') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
