@@ -1,37 +1,29 @@
 import java.io.*;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException{
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int k = sc.nextInt();
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int K = Integer.parseInt(st.nextToken());
-        br.close();
-
-        Queue<Integer> queue = new LinkedList<>();
-        for (int i = 1; i <= N; i++) {
-            queue.offer(i);
+        LinkedList<Integer> list = new LinkedList<>();
+        for (int i = 1; i < n + 1; i++) {
+            list.add(i);
         }
 
-        int[] results = new int[N];
-        int j = 0;
-        while (!queue.isEmpty()) {
-            for (int i = 0; i < K - 1; i++) {
-                queue.add(queue.poll());
-            }
-            results[j++] = queue.poll();
+        int index = 0;
+        int[] results = new int[n];
+        int i = 0;
+        while (!list.isEmpty()) {
+            index = (index + (k - 1)) % list.size();
+            results[i++] = list.remove(index);
         }
-
         System.out.println("<" + Arrays.stream(results)
                 .mapToObj(String::valueOf)
                 .collect(Collectors.joining(", ")) + ">");
-
     }
 }
+
