@@ -1,19 +1,14 @@
-// max heap impl
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.Scanner;
+// max heap implement
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
-        int n = sc.nextInt();
+        int n = Integer.parseInt(br.readLine());
         MaxHeap maxHeap = new MaxHeap(n);
-
         while(n-- > 0) {    // n번 반복
-            int x = sc.nextInt();
+            int x = Integer.parseInt(br.readLine());
             if (x == 0) {
                 bw.write(maxHeap.pop() + "\n");
             } else {
@@ -56,7 +51,7 @@ class MaxHeap {
         int current = 1;
         while(current * 2 <= size) {    // 왼쪽 자식노드가 없으면 break
             int left = current * 2;
-            int right = left + 1;   
+            int right = left + 1;
             int child = left;
             if (right <= size && heap[left] < heap[right]) {    // right > size 이면, 비교안함
                 child = right;
@@ -76,4 +71,3 @@ class MaxHeap {
         heap[b] = temp;
     }
 }
-
