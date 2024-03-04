@@ -1,9 +1,23 @@
 import java.io.*;
 import java.util.*;
 
+class Node implements Comparable<Node> {
+    int node;
+    int weight;
+
+    public Node(int node, int weight) {
+        this.node = node;
+        this.weight = weight;
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        return this.weight - o.weight;
+    }
+}
+
 public class Main {
-    static int N;
-    static int E;
+    static int N, E;
     static List<List<Node>> graph;
     static int[] distance;
     static boolean[] visited;
@@ -61,20 +75,5 @@ public class Main {
             }
         }
         return distance[end];
-    }
-}
-
-class Node implements Comparable<Node> {
-    int node;
-    int weight;
-
-    public Node(int node, int weight) {
-        this.node = node;
-        this.weight = weight;
-    }
-
-    @Override
-    public int compareTo(Node o) {
-        return this.weight - o.weight;
     }
 }
