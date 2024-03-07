@@ -2,37 +2,36 @@ import java.util.*;
 
 public class Main {
     static int N, M;
-    static int[] nums;
+    static int[] result;
+    static boolean[] visited;
     static StringBuilder sb = new StringBuilder();
-    
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         N = sc.nextInt();
         M = sc.nextInt();
 
-        nums = new int[N];
-        for (int i = 0; i < N; i++) {
-            nums[i] = i + 1;
-        }
+        result = new int[M];
+        visited = new boolean[N];
 
-        LinkedList<Integer> curr = new LinkedList<>();
-        backtrack(curr);
+        dfs(0);
         System.out.println(sb);
     }
 
-    public static void backtrack(LinkedList<Integer> curr) {
-        if (curr.size() == M) {
-            for (int i : curr) {
-                sb.append(i).append(" ");
+    public static void dfs(int depth) {
+        if (depth == M) {
+            for (int val : result) {
+                sb.append(val).append(' ');
             }
-            sb.append("\n");
+            sb.append('\n');
             return;
         }
-        for (int num : nums) {
-            if (!curr.contains(num)) {
-                curr.addLast(num);
-                backtrack(curr);
-                curr.removeLast();
+        for (int i = 0; i < N; i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                result[depth] = i + 1;  // depth에 현재 숫자를 넣어줌
+                dfs(depth + 1);
+                visited[i] = false;
             }
         }
     }
