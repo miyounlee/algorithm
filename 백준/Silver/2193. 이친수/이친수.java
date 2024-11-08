@@ -1,21 +1,23 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
 
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        long[] answer = new long[n + 1];
-        answer[0] = 0;
-        answer[1] = 1;
+        int n = Integer.parseInt(br.readLine());
+        long[][] dp = new long[n + 1][2];
+        dp[1][0] = 1;
+        dp[1][1] = 1;
 
-        for (int i = 2; i < n + 1; i++) {
-            answer[i] = answer[i - 1] + answer[i - 2];
+        for (int i = 2; i <= n; i++) {
+            dp[i][0] = dp[i - 1][0] + dp[i - 1][1];
+            dp[i][1] = dp[i - 1][0];
         }
 
-        System.out.println(answer[n]);
+        System.out.println(dp[n][1]);
     }
-    
+
 }
